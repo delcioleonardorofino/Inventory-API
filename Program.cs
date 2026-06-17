@@ -1,8 +1,14 @@
+using Inventory.Api.Data;
+using Inventory.Api.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
+// Add DbContext
+builder.Services.AddDbContext<InventoryDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddOpenApi();
-builder.Services.AddSingleton<IproductService, ProductService>();
+builder.Services.AddScoped<IproductService, ProductService>();
 
 var app = builder.Build();
 
